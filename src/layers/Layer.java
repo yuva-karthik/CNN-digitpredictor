@@ -15,11 +15,19 @@ public abstract class Layer {
         return _prev;
     }
 
+    public void setNextLayer(Layer next){
+        this._next = next;
+    }
+
+    public void setPrevLayer(Layer prev){
+        this._prev = prev;
+    }
+
     public abstract double[] getOutput(List<double[][]> input);
     public abstract double[] getOutput(double[] input);
 
-    public abstract void backPropagation(List<double[][]> d);
-    public abstract void backPropagation(double[] d);
+    public abstract void backPropagation(List<double[][]> dldo);
+    public abstract void backPropagation(double[] dldo);
 
     public abstract int getLength();
     public abstract int getRow();
@@ -31,11 +39,11 @@ public abstract class Layer {
         int row = input.get(0).length;
         int col = input.get(0)[0].length;
         double[] vector = new double[n * row * col];
-        int k = 0;
+        int m = 0;
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < row; j++) {
-                for (int l = 0; l < col; l++) {
-                    vector[k++] = input.get(i)[j][l];
+                for (int k = 0; k < col; k++) {
+                    vector[m++] = input.get(i)[j][k];
                 }
             }
         }
