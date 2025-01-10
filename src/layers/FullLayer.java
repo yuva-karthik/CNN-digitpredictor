@@ -65,14 +65,45 @@ public class FullLayer extends Layer {
 
     @Override
     public void backPropagation(List<double[][]> dldo) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getLength'");
+        double[] vector = makeVector(dldo);
+        backPropagation(vector);
     }
 
     @Override
     public void backPropagation(double[] dldo) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getLength'");
+        double[] dldx = new double[_inlength];
+        double[] dodx = new double[_outlength];
+        double[][] dxdw = new double[_inlength][_outlength];
+        
+        for(int i = 0 ; i < _outlength ; i++){
+            dodx[i] = derivated_reLu(dldo[i]);
+        }
+
+        for(int i = 0 ; i < _inlength ; i++){
+            for(int j = 0 ; j < _outlength ; j++){
+                dldx[i] += dldo[j] * dodx[j] * _weights[i][j];
+            }
+        }
+
+        for(int i = 0 ; i < _inlength ; i++){
+            for(int j = 0 ; j < _outlength ; j++){
+                dxdw[i][j] = dldo[j] * dodx[j];
+            }
+        }
+
+        for(int i = 0 ; i < _inlength ; i++){
+            for(int j = 0 ; j < _outlength ; j++){
+                _weights[i][j] -= dxdw[i][j];
+            }
+        }
+
+        for(int i = 0 ; i < _outlength ; i++){
+            _biases[i] -= dodx[i];
+        }
+
+        if(_prev != null){
+            _prev.backPropagation(dldx);
+        }
     }
 
     @Override
