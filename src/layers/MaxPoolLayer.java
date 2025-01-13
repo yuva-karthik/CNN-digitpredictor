@@ -62,26 +62,44 @@ public class MaxPoolLayer extends Layer {
 
     @Override
     public double[] getOutput(List<double[][]> input) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getOutput'");
+        List<double[][]> outpool = MaxForwardPass(input);
+        return _next.getOutput(outpool);
     }
 
     @Override
     public double[] getOutput(double[] input) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getOutput'");
+        List<double[][]> matinput = makeMatrix(input, _inrows, _incols, _inlength);
+        return getOutput(matinput);
     }
 
     @Override
     public void backPropagation(List<double[][]> dldo) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'backPropagation'");
+        List<double[][]> dxdl = new ArrayList<>();
+        int k = 0;
+        for(double[][] arr : dldo){
+            double[][] error = new double[_inrows][_incols];
+            for(int i = 0 ; i < getRow() ; i++){
+                for(int j = 0 ; j < getCol() ; j++){
+                    int max_i = _lastmaxrow.get(k)[i][j];
+                    int max_j = _lastmaxcol.get(k)[i][j];
+
+                    if(max_i != -1){
+                        error[max_i][max_j] += arr[i][j];
+                    }
+                }
+            }
+            dxdl.add(error);
+            k++;
+        }
+        if(_prev != null){
+            _prev.backPropagation(dxdl);
+        }
     }
 
     @Override
     public void backPropagation(double[] dldo) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'backPropagation'");
+        List<double[][]> matrix = makeMatrix(dldo, getRow(), getCol(), getLength());
+        backPropagation(matrix);
     }
 
     @Override

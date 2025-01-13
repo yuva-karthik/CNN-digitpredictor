@@ -108,26 +108,22 @@ public class FullLayer extends Layer {
 
     @Override
     public int getLength() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getLength'");
+        return 0;
     }
 
     @Override
     public int getRow() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getRow'");
+        return 0;
     }
 
     @Override
     public int getCol() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getCol'");
+        return 0;
     }
 
     @Override
     public int getElement() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getElement'");
+        return _outlength;
     }
     
     private void setWeight(){
