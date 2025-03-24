@@ -22,6 +22,15 @@ public class MatrixUtility {
         return result;
     }
 
+    public static double[] add(double[] a, double[] b){
+        int cols = b.length;
+        double[] result = new double[cols];
+        for(int j = 0; j < cols; j++){
+            result[j] = a[j] + b[j];
+        }
+        return result;
+    }
+
     public static double[][] scalerMultiply(double[][] a , double scalar){
         int rows = a.length;
         int cols = a[0].length;

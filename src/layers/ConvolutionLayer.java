@@ -14,11 +14,11 @@ public class ConvolutionLayer extends Layer{
     private int _inlength;
     private int _inrows;
     private int _incols;
-    private int _learningRate;
+    private double _learningRate;
 
     List <double[][]> _lastinput;
 
-    public ConvolutionLayer(int _filterSize , int _step , int seed , int _inlength , int _inrows , int _incols , int numfilter , int learningRate){
+    public ConvolutionLayer(int _filterSize , int _step , long seed , int _inlength , int _inrows , int _incols , int numfilter , double learningRate){
         this._filterSize = _filterSize;
         this.seed = seed;
         this._step = _step;
