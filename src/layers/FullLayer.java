@@ -10,11 +10,13 @@ public class FullLayer extends Layer {
     private double[] _biases;
     private int _inlength;
     private int _outlength;
+    private double _learningRate;
 
-    public FullLayer(int inlen , int outlen , int seed){
+    public FullLayer(int inlen , int outlen , long seed , double _learningRate){
         this._inlength = inlen;
         this._outlength = outlen;
         this.seed = seed;
+        this._learningRate = _learningRate;
 
         _weights = new double[inlen][outlen];
         _biases = new double[outlen];
@@ -93,18 +95,19 @@ public class FullLayer extends Layer {
 
         for(int i = 0 ; i < _inlength ; i++){
             for(int j = 0 ; j < _outlength ; j++){
-                _weights[i][j] -= dxdw[i][j];
+                _weights[i][j] -= dxdw[i][j] * _learningRate;
             }
         }
 
         for(int i = 0 ; i < _outlength ; i++){
-            _biases[i] -= dodx[i];
+            _biases[i] -= dodx[i] * _learningRate;
         }
 
         if(_prev != null){
             _prev.backPropagation(dldx);
         }
     }
+
 
     @Override
     public int getLength() {
