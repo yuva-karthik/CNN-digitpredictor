@@ -18,16 +18,17 @@ public class Data_Reader {
                 double[][] data = new double[row][col];
                 int label = Integer.parseInt(item[0]);
 
-                int k = 0;
+                int k = 1;
                 for(int i = 0 ; i < row ; i++){
                     for(int j = 0 ; j < col ; j++){
                         data[i][j] = Double.parseDouble(item[k++]);
                     }
                 }
+                
                 images.add(new Image(data,label));
             } 
         }catch(Exception e){
-
+            e.printStackTrace();
         }
         return images;
     }

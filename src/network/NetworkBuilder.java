@@ -40,7 +40,7 @@ public class NetworkBuilder {
             _layers.add(new FullLayer(1,outlength,seed,learningRate));
         }else{
             Layer prev = _layers.get(_layers.size()-1);
-            _layers.add(new FullLayer(prev.getLength(),outlength,seed,learningRate));
+            _layers.add(new FullLayer(prev.getElement(),outlength,seed,learningRate));
         }
     }
 
