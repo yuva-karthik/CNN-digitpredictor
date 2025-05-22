@@ -52,4 +52,21 @@ public class MatrixUtility {
         return result;
     }
 
+    public static double[] softmax(double[] logits) {
+        int n = logits.length;
+        double max = logits[0];
+        for (int i = 1; i < n; i++) {
+            if (logits[i] > max) max = logits[i];
+        }
+        double sum = 0;
+        double[] exps = new double[n];
+        for (int i = 0; i < n; i++) {
+            exps[i] = Math.exp(logits[i] - max);
+            sum += exps[i];
+        }
+        for (int i = 0; i < n; i++) {
+            exps[i] /= sum;
+        }
+        return exps;
+    }
 }

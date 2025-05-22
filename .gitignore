@@ -1,1 +1,5 @@
 dataset/
+out/
+runjava.bat
+cnn_model.ser
+training_log.txt

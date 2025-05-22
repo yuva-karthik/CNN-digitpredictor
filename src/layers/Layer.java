@@ -2,8 +2,10 @@ package src.layers;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.io.Serializable;
 
-public abstract class Layer {
+
+public abstract class Layer implements Serializable{
     protected Layer _next;
     protected Layer _prev;
 
@@ -50,19 +52,24 @@ public abstract class Layer {
         return vector;
     }
 
-    public List<double[][]> makeMatrix(double[] input , int row , int col , int len){
+    public List<double[][]> makeMatrix(double[] input, int row, int col, int len) {
         List<double[][]> matrix = new ArrayList<>();
         int k = 0;
         for (int i = 0; i < len; i++) {
             double[][] matrixRow = new double[row][col];
             for (int j = 0; j < row; j++) {
                 for (int l = 0; l < col; l++) {
-                    matrixRow[j][l] = input[k++];
+                    if (k < input.length) {
+                        matrixRow[j][l] = input[k++];
+                    } else {
+                        matrixRow[j][l] = 0; 
+                    }
                 }
             }
             matrix.add(matrixRow);
         }
         return matrix;
     }
+    
 
 }
